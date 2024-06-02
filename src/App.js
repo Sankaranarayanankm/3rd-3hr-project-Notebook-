@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import NoteContextProvider from "./Context/NoteContextProvider";
+import NewNote from "./Components/NewNote";
+import Layout from "./Components/Layout";
 
-function App() {
+const App = () => {
+  const [showModal, setShowModal] = useState(true);
+  const showModalHandler = () => {
+    setShowModal(true);
+  };
+  const hideModalHandler = () => {
+    setShowModal(false);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NoteContextProvider>
+      <Layout show={showModalHandler} />
+      {showModal && <NewNote hide={hideModalHandler} />}
+    </NoteContextProvider>
   );
-}
+};
 
 export default App;
